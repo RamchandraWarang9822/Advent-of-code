@@ -1,10 +1,10 @@
-// This code is not working
 #include <stdio.h>
+#include <string.h>
 
 int main()
 {
     FILE *file;
-    char buffer[100];
+    char buffer[1024];
 
     file = fopen("input.txt", "r");
 
@@ -19,7 +19,7 @@ int main()
     {
         int first = -1, last = -1;
         printf("%s", buffer);
-        for (int i = 0; i < sizeof(buffer); i++)
+        for (int i = 0; i < strlen(buffer); i++)
         {
             if (buffer[i] >= 48 && buffer[i] <= 57)
             {
