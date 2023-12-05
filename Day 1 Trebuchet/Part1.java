@@ -4,7 +4,7 @@ public class Part1 {
     public static void main(String arg[]) {
         // Lets import the input text first
         try (BufferedReader reader = new BufferedReader(
-                new FileReader("C:/Users/Samuel/Desktop/Advent of Code/1/input.txt"))) {
+                new FileReader("C:\\Users\\Samuel\\Desktop\\Advent of Code\\Day 1 Trebuchet\\input.txt"))) {
             String line;
             int total = 0;
             while ((line = reader.readLine()) != null) {
