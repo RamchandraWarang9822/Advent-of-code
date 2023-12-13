@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class Part1 {
+public class part1 {
     public static void main(String arg[]) {
         // Lets import the input text first
         try (BufferedReader reader = new BufferedReader(

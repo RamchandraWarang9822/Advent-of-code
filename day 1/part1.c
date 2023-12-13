@@ -6,7 +6,7 @@ int main()
     FILE *file;
     char buffer[1024];
 
-    file = fopen("input.txt", "r");
+    file = fopen("./input_part1.txt", "r");
 
     if (file == NULL)
     {
@@ -18,7 +18,6 @@ int main()
     while (fgets(buffer, sizeof(buffer), file) != NULL)
     {
         int first = -1, last = -1;
-        printf("%s", buffer);
         for (int i = 0; i < strlen(buffer); i++)
         {
             if (buffer[i] >= 48 && buffer[i] <= 57)
