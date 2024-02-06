@@ -30,7 +30,7 @@ try:
         
         # Get the index of the crates character
         str = crates[-1]
-        index = []
+        index = [1 , 5 , 7]
         for i in range(0,len(str)):
             if str[i].isdigit():
                 index.append(int(i))
