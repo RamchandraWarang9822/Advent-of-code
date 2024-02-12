@@ -1,5 +1,3 @@
-package Day13;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,8 +7,11 @@ import java.util.*;
 public class Day13 {
     static List<String> lines;
     static int index;
+    static int result = 0;
+    static List<Object> mainList = new ArrayList<>();
 
-    public static void main(String[] args) throws Exception {
+
+    public static void main(String[] args) {
 
         String filePath = "Day13/test.txt";
         Path path = Paths.get(filePath);
@@ -21,7 +22,8 @@ public class Day13 {
             e.printStackTrace();
         }
 
-        part1(lines);
+//        part1(lines);
+        part2(lines);
     }
 
     static void part1(List<String> lines) {
@@ -30,19 +32,44 @@ public class Day13 {
         int indices = 0;
 
         for (int i = 0; i < lines.size(); i++) {
-//            boolean flag = false;
             indices++;
 
             left = lines.get(i++);
             right = lines.get(i++);
+
             index = 0;
             leftList = parseString(left);
             index = 0;
             rightList = parseString(right);
 
-            boolean flag = compareLeftRight((List<Object>) leftList.get(0), (List<Object>) rightList.get(0));
-            System.out.println(flag);
+            System.out.print(leftList.get(0) + "  ");
+            System.out.println(rightList.get(0));
+            Boolean res = compareLeftRight((List<Object>) leftList.get(0), (List<Object>) rightList.get(0));
+            if(res == true){
+                result += indices;
+            }
+            System.out.print(res);
         }
+        System.out.println("\n" + result);
+    }
+
+    static void part2(List<String> lines) {
+        String string;
+        List<Object> list;
+
+        for (int i = 0; i < lines.size(); i++) {
+            string = lines.get(i);
+            if(!string.isBlank()){
+                list = parseString(string);
+                mainList.add(list.get(0));
+            }
+        }
+
+        System.out.println(mainList);
+
+//        for(Object item: mainList){
+//            System.out.println(item);
+//        }
     }
 
     static List<Object> parseString(String string){
@@ -52,12 +79,12 @@ public class Day13 {
 
             if(Character.isDigit(c)){
                 int num = 0;
-                while(index < string.length() && Character.isDigit(string.charAt(index))){
+                while (index < string.length() && Character.isDigit(string.charAt(index))){
                     num = num * 10 + Character.getNumericValue(string.charAt(index));
                     index++;
                 }
                 resultList.add(num);
-            } else if(c == '['){
+            } else if (c == '['){
                 index++;
                 List<Object> nestedList = parseString(string);
                 resultList.add(nestedList);
@@ -73,30 +100,41 @@ public class Day13 {
         return resultList;
     }
 
-    static boolean compareLeftRight(List<Object> leftList, List<Object> rightList){
-        int pointer = 0;
-        while(pointer < leftList.size()){
-            Object element1 = leftList.get(pointer);
-            Object element2 = rightList.get(pointer);
-
-            if(element1 instanceof Integer && element2 instanceof Integer){
-                if((int) element1 < (int) element2){
-                    return false;
-                } else if ((int) element1 == (int) element2){
-                    pointer ++;
-                    continue;
+    static Boolean compareLeftRight(List<Object> leftList, List<Object> rightList){
+        for (int i = 0; i < leftList.size(); i++) {
+            if (rightList.size() <= i) return Boolean.FALSE;
+            if (leftList.get(i) instanceof List || rightList.get(i) instanceof List){
+                List innerList1;
+                List innerList2;
+                if (leftList.get(i) instanceof Integer){
+                    innerList1 = wrapList((Integer) leftList.get(i));
+                } else {
+                    innerList1 = (List)leftList.get(i);
                 }
-            } else if ( element1 instanceof List<?> && element2 instanceof List<?>){
-                if(((List<?>) element1).size() > ((List<?>) element2).size()){
-                    return false;
+                if ( rightList.get(i) instanceof Integer){
+                    innerList2 = wrapList((Integer) rightList.get(i));
+                } else {
+                    innerList2 = (List)rightList.get(i);
                 }
-                if (!compareLeftRight((List<Object>) element1, (List<Object>) element2)) {
-                    return false;
+                Boolean res = compareLeftRight(innerList1, innerList2);
+                if ( res != null){
+                    return res;
                 }
             } else {
-                return false;
+                if ( (int)leftList.get(i) < (int)rightList.get(i)){
+                    return Boolean.TRUE;
+                }
+                if ( (int)leftList.get(i) > (int)rightList.get(i)){
+                    return Boolean.FALSE;
+                }
             }
         }
-        return true;
+        return leftList.size() != rightList.size() ? Boolean.TRUE : null;
+    }
+
+    private static List wrapList(Integer val1) {
+        List newList = new ArrayList();
+        newList.add(val1);
+        return newList;
     }
 }
