@@ -66,10 +66,6 @@ public class Day13 {
         }
 
         System.out.println(mainList);
-
-//        for(Object item: mainList){
-//            System.out.println(item);
-//        }
     }
 
     static List<Object> parseString(String string){
