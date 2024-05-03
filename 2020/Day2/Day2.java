@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class Day1 {
+public class Day2 {
     static List<String> input;
     static int result = 0;
 
