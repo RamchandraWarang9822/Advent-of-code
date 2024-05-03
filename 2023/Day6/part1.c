@@ -4,12 +4,14 @@
 
 #define ARRAYLENGTH 4
 
-int main() {
+int main()
+{
 
   int result = 1;
   FILE *file;
   file = fopen("input_part1.txt", "r");
-  if (file == NULL) {
+  if (file == NULL)
+  {
     printf("Error reading the input file");
     return 1;
   }
@@ -26,13 +28,15 @@ int main() {
 
   // Convert the time to integer;
   int timeArray[ARRAYLENGTH];
-  while (timeToken != NULL) {
+  while (timeToken != NULL)
+  {
     timeArray[counter++] = atoi(timeToken);
     timeToken = strtok(NULL, " ");
   }
 
   printf("\nTime Array : ");
-  for (int m = 0; m < ARRAYLENGTH; m++) {
+  for (int m = 0; m < ARRAYLENGTH; m++)
+  {
     printf("%d ", timeArray[m]);
   }
 
@@ -46,22 +50,26 @@ int main() {
 
   // Convert the distance  to integer
   int distanceArray[ARRAYLENGTH];
-  while (distanceToken != NULL) {
+  while (distanceToken != NULL)
+  {
     distanceArray[counter++] = atoi(distanceToken);
     distanceToken = strtok(NULL, " ");
   }
 
   printf("\nDistance Array : ");
-  for (int n = 0; n < ARRAYLENGTH; n++) {
+  for (int n = 0; n < ARRAYLENGTH; n++)
+  {
     printf("%d ", distanceArray[n]);
   }
 
-  for (int i = 0; i < counter; i++) {
+  for (int i = 0; i < counter; i++)
+  {
     int time = timeArray[i];
     int distance = distanceArray[i];
     printf("CT : %d ; CD : %d\n", time, distance);
     int wins = 0;
-    for (int speed = 0; speed < time; speed++) {
+    for (int speed = 0; speed < time; speed++)
+    {
       int rem = time - speed;
       int tvl = speed * rem;
       wins = (tvl > distance) ? wins + 1 : wins;

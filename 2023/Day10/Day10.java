@@ -37,7 +37,6 @@ class Coordinates implements Comparable<Coordinates> {
     }
 }
 
-
 public class Day10 {
     static List<String> input;
     static int result = 1;
